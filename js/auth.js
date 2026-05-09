@@ -5,7 +5,30 @@
 /* ---- LOGIN ---- */
 document.getElementById('loginForm')?.addEventListener('submit', function(e) {
   e.preventDefault();
-  if (validateLogin()) startLoginSpinner();
+
+  if (!validateLogin()) return;
+
+  // Para desarrollo: si no hay usuarios, crea el usuario demo
+  if (BancaStorage.getUsers().length === 0) {
+    BancaStorage.seed();
+  }
+
+  const identifier = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const generalError = document.getElementById('loginGeneralError');
+
+  const user = BancaStorage.findUser(identifier);
+
+  if (!user || user.password !== password) {
+    generalError.textContent = 'Cédula/correo o contraseña incorrectos.';
+    generalError.classList.add('visible');
+    return;
+  }
+
+  generalError.textContent = '';
+  generalError.classList.remove('visible');
+
+  startLoginSpinner(user);
 });
 
 function validateLogin() {
@@ -38,22 +61,20 @@ function validateLogin() {
   return valid;
 }
 
-function startLoginSpinner() {
+function startLoginSpinner(user) {
   const btn     = document.getElementById('loginBtn');
   const text    = document.getElementById('loginBtnText');
   const spinner = document.getElementById('loginSpinner');
 
-  // Mostrar spinner, ocultar texto
-  btn.disabled         = true;
-  text.style.display   = 'none';
+  btn.disabled = true;
+  text.style.display = 'none';
   spinner.style.display = 'block';
 
-  // Esperar exactamente 2 segundos → redirigir al dashboard
   setTimeout(() => {
+    BancaStorage.setSession(user.id);
     window.location.href = 'pages/dashboard.html';
   }, 2000);
 }
-
 /* ---- MOSTRAR/OCULTAR CONTRASEÑA ---- */
 function togglePasswordVisibility() {
   const input   = document.getElementById('password');

@@ -176,6 +176,69 @@ const Storage = {
     this._set(this.KEYS.TRANSACTIONS, all);
     return tx;
   },
+  createTransaction(data) {
+  const amount = Number(data.amount);
+
+  if (!data.userId) {
+    return {
+      ok: false,
+      message: 'No se indicó el usuario de la transacción.'
+    };
+  }
+
+  if (!amount || amount <= 0) {
+    return {
+      ok: false,
+      message: 'El monto debe ser mayor a cero.'
+    };
+  }
+
+  const user = this.getUsers().find(u => u.id === data.userId);
+
+  if (!user) {
+    return {
+      ok: false,
+      message: 'Usuario no encontrado.'
+    };
+  }
+
+  const direction = data.direction;
+
+  if (direction === 'out' && user.balance < amount) {
+    return {
+      ok: false,
+      message: 'Saldo insuficiente.'
+    };
+  }
+
+  const tx = {
+    id: this.uuid(),
+    userId: data.userId,
+    type: data.type,
+    direction: data.direction,
+    amount,
+    date: new Date().toISOString(),
+    description: data.description,
+    counterparty: data.counterparty,
+    reference: 'REF-' + Math.floor(100000 + Math.random() * 900000)
+  };
+
+  this.addTransaction(tx);
+
+  const newBalance = direction === 'in'
+    ? user.balance + amount
+    : user.balance - amount;
+
+  const updatedUser = this.updateUser(user.id, {
+    balance: Number(newBalance.toFixed(2))
+  });
+
+  return {
+    ok: true,
+    transaction: tx,
+    user: updatedUser
+  };
+},
 
   /* ============================================
      UTILIDADES
@@ -235,3 +298,4 @@ const Storage = {
     console.info('Storage: usuario demo creado. Login con V-12345678 / 123456');
   }
 };
+window.BancaStorage = Storage;
