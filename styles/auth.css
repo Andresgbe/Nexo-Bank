@@ -1,0 +1,227 @@
+/* ============================================
+   AUTH PAGES — Login / Registro
+   Depende de las variables definidas en main.css
+============================================ */
+
+/* --- Body en páginas de autenticación --- */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 0% 0%,   var(--accent-light) 0%, transparent 45%),
+    radial-gradient(circle at 100% 100%, var(--accent-light) 0%, transparent 45%),
+    var(--bg-primary);
+}
+
+/* ============================================
+   CONTENEDOR PRINCIPAL (dos columnas)
+============================================ */
+.auth-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  max-width: 1000px;
+  min-height: 600px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(11, 19, 64, 0.15);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* ============================================
+   PANEL IZQUIERDO — Branding
+============================================ */
+.auth-brand {
+  position: relative;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(135deg, #0b1340 0%, #1a2870 100%);
+  color: #ffffff;
+  overflow: hidden;
+}
+
+/* Halo decorativo */
+.auth-brand::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(47, 76, 221, 0.30) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.brand-logo {
+  position: relative;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+
+.brand-logo span {
+  color: #4d6aff;
+}
+
+.brand-tagline {
+  position: relative;
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.5;
+  opacity: 0.85;
+  margin-bottom: 40px;
+}
+
+.brand-features {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.brand-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.88rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.brand-feature svg {
+  flex-shrink: 0;
+  color: #4d6aff;
+}
+
+/* ============================================
+   PANEL DERECHO — Formulario
+============================================ */
+.auth-form-panel {
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-form-header {
+  margin-bottom: 32px;
+}
+
+.auth-form-header h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.auth-form-header p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   OPCIONES DE LOGIN (Recordarme + ¿Olvidé?)
+============================================ */
+.login-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  font-size: 0.82rem;
+}
+
+.checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-wrap input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* ============================================
+   ENLACES Y FOOTER
+============================================ */
+.link-text {
+  color: var(--accent);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.link-text:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+.auth-footer-text {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   BOTÓN FLOTANTE DE TEMA
+============================================ */
+.theme-toggle-float {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: 'Sora', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+}
+
+.theme-toggle-float:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(47, 76, 221, 0.18);
+}
+
+/* ============================================
+   RESPONSIVE — colapsa a una columna
+============================================ */
+@media (max-width: 768px) {
+  .auth-container {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .auth-brand {
+    padding: 32px 28px;
+  }
+
+  .brand-tagline {
+    margin-bottom: 24px;
+  }
+
+  .auth-form-panel {
+    padding: 36px 28px;
+  }
+}
