@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banca 360 — Depósitos</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles/main.css"/>
+  <link rel="stylesheet" href="../styles/dashboard.css"/>
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-logo">Banca<span>360</span></div>
+
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="sidebar-link">Dashboard</a>
+          <a href="transfer.html" class="sidebar-link">Transferencias</a>
+          <a href="mobile-payment.html" class="sidebar-link">Pago Móvil</a>
+          <a href="deposit.html" class="sidebar-link active">Depósitos</a>
+          <a href="history.html" class="sidebar-link">Historial</a>
+          <a href="profile.html" class="sidebar-link">Perfil</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <a href="#" class="sidebar-link" onclick="AuthGuard.logout(); return false;">
+          Cerrar sesión
+        </a>
+      </div>
+    </aside>
+
+    <main class="app-main">
+
+      <header class="topbar">
+        <div class="topbar-greeting">
+          Hola, <strong id="greetingName">—</strong>
+        </div>
+
+        <button class="theme-toggle" onclick="Theme.toggle()">
+          <svg id="iconSun" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <svg id="iconMoon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14" style="display:none">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+          <span id="themeLabel">CLARO</span>
+        </button>
+      </header>
+
+      <section class="content">
+        <h1 class="page-title">Registrar depósito</h1>
+
+        <div class="card" style="max-width: 560px;">
+          <form id="depositForm" novalidate>
+
+            <div class="input-group">
+              <label for="amount">Monto a depositar</label>
+              <div class="input-wrap">
+                <input
+                  type="number"
+                  id="amount"
+                  placeholder="Ej: 100"
+                  min="1"
+                  step="0.01"
+                />
+              </div>
+              <span class="error-msg" id="amountError">Ingresa un monto válido mayor a cero.</span>
+            </div>
+
+            <div class="input-group">
+              <label for="description">Descripción</label>
+              <div class="input-wrap">
+                <input
+                  type="text"
+                  id="description"
+                  placeholder="Ej: Depósito en taquilla"
+                />
+              </div>
+              <span class="error-msg" id="descriptionError">La descripción es obligatoria.</span>
+            </div>
+
+            <div class="input-group">
+              <label for="counterparty">Origen del depósito</label>
+              <div class="input-wrap">
+                <input
+                  type="text"
+                  id="counterparty"
+                  placeholder="Ej: Cajero #01"
+                />
+              </div>
+              <span class="error-msg" id="counterpartyError">El origen del depósito es obligatorio.</span>
+            </div>
+
+            <button type="submit" class="btn-primary">
+              Registrar depósito
+            </button>
+
+            <p id="depositMessage" class="auth-footer-text"></p>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/auth-guard.js"></script>
+  <script src="../js/deposit.js"></script>
+
+  <script>
+    const currentUser = AuthGuard.protect();
+
+    if (currentUser) {
+      Theme.init();
+      Deposit.init(currentUser);
+    }
+  </script>
+</body>
+</html>

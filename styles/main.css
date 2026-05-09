@@ -1,0 +1,282 @@
+/* ============================================
+   VARIABLES — LIGHT THEME (default)
+============================================ */
+:root {
+  /* Fondos */
+  --bg-primary:       #f0f4ff;
+  --bg-secondary:     #ffffff;
+  --bg-card:          #ffffff;
+  --bg-sidebar:       #0b1340;
+  --bg-sidebar-hover: #162060;
+  --bg-input:         #f5f7ff;
+
+  /* Textos */
+  --text-primary:     #0b1340;
+  --text-secondary:   #5a6a99;
+  --text-muted:       #9aa5cc;
+  --text-sidebar:     #c8d0f0;
+  --text-on-accent:   #ffffff;
+
+  /* Acento */
+  --accent:           #2f4cdd;
+  --accent-light:     #e8ecff;
+  --accent-hover:     #1e38c4;
+
+  /* Estados */
+  --success:          #12b76a;
+  --success-light:    #d1fae5;
+  --danger:           #f04438;
+  --danger-light:     #fee4e2;
+  --warning:          #f79009;
+  --warning-light:    #fef3c7;
+
+  /* Bordes y sombras */
+  --border:           #e2e8ff;
+  --border-input:     #d0d8f5;
+  --shadow-card:      0 2px 16px rgba(47, 76, 221, 0.08);
+  --shadow-sidebar:   4px 0 24px rgba(11, 19, 64, 0.18);
+
+  /* Forma */
+  --radius-sm:        8px;
+  --radius-md:        14px;
+  --radius-lg:        20px;
+  --sidebar-width:    240px;
+
+  /* Transición global */
+  --transition:       all 0.25s ease;
+}
+
+/* ============================================
+   VARIABLES — DARK THEME
+============================================ */
+[data-theme="dark"] {
+  --bg-primary:       #080e2a;
+  --bg-secondary:     #0f1a3e;
+  --bg-card:          #131f4a;
+  --bg-sidebar:       #060d26;
+  --bg-sidebar-hover: #0f1a3e;
+  --bg-input:         #0f1a3e;
+
+  --text-primary:     #e8ecff;
+  --text-secondary:   #8a97cc;
+  --text-muted:       #4a5a8a;
+  --text-sidebar:     #8a97cc;
+
+  --accent:           #4d6aff;
+  --accent-light:     #1a2660;
+  --accent-hover:     #6680ff;
+
+  --success-light:    #0a2e1e;
+  --danger-light:     #2e0f0d;
+  --warning-light:    #2e1f00;
+
+  --border:           #1e2d60;
+  --border-input:     #1e2d60;
+  --shadow-card:      0 2px 16px rgba(0, 0, 0, 0.35);
+  --shadow-sidebar:   4px 0 24px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   RESET & BASE
+============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: var(--transition);
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ============================================
+   TIPOGRAFÍA (importar en cada HTML)
+   <link href="https://fonts.googleapis.com/css2?
+   family=Sora:wght@300;400;500;600;700&
+   family=JetBrains+Mono:wght@400;500&display=swap"
+   rel="stylesheet"/>
+============================================ */
+
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ============================================
+   COMPONENTES GLOBALES
+============================================ */
+
+/* --- Botón primario --- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 24px;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'Sora', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.3px;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(47, 76, 221, 0.35);
+}
+
+.btn-primary:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+/* --- Botón outline --- */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px 24px;
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-family: 'Sora', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-outline:hover {
+  background: var(--accent-light);
+}
+
+/* --- Input --- */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.3px;
+}
+
+.input-wrap {
+  position: relative;
+}
+
+.input-wrap input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-input);
+  border: 1.5px solid var(--border-input);
+  border-radius: var(--radius-sm);
+  font-family: 'Sora', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  transition: var(--transition);
+  outline: none;
+}
+
+.input-wrap input:focus {
+  border-color: var(--accent);
+  background: var(--bg-secondary);
+  box-shadow: 0 0 0 3px rgba(47, 76, 221, 0.1);
+}
+
+.input-wrap input.error {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(240, 68, 56, 0.1);
+}
+
+.input-wrap .input-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrap .input-icon svg { width: 18px; height: 18px; }
+
+.input-wrap input.has-icon { padding-right: 44px; }
+
+/* Mensaje de error */
+.error-msg {
+  font-size: 0.72rem;
+  color: var(--danger);
+  margin-top: 4px;
+  display: none;
+}
+
+.error-msg.visible { display: block; }
+
+/* --- Card --- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 28px;
+}
+
+/* --- Spinner --- */
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Badge --- */
+.badge {
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.badge.success { background: var(--success-light); color: var(--success); }
+.badge.danger  { background: var(--danger-light);  color: var(--danger); }
+.badge.warning { background: var(--warning-light); color: var(--warning); }
+.badge.accent  { background: var(--accent-light);  color: var(--accent); }
+
+/* --- Animación entrada --- */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in { animation: fadeSlideUp 0.4s ease both; }
