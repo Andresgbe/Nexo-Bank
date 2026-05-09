@@ -225,3 +225,14 @@
     padding: 36px 28px;
   }
 }
+/* Error general del formulario (credenciales inválidas) */
+.login-general-error {
+  text-align: center;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  background: var(--danger-light);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
