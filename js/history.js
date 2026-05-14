@@ -5,6 +5,9 @@
  * - Todos
  * - Solo entradas
  * - Solo salidas
+ *
+ * Cada tarjeta es clickeable y abre el detalle individual en
+ * transaction-detail.html?id=...
  */
 
 const HistoryPage = {
@@ -64,8 +67,10 @@ const HistoryPage = {
       return;
     }
 
+    // Cada tarjeta es un <a> que lleva al detalle
     container.innerHTML = transactions.map(tx => `
-      <article class="transaction-card">
+      <a href="transaction-detail.html?id=${encodeURIComponent(tx.id)}"
+         class="transaction-card transaction-card-link">
         <div>
           <strong>${tx.description}</strong>
           <p>
@@ -76,10 +81,13 @@ const HistoryPage = {
           </p>
         </div>
 
-        <span class="${tx.direction === 'in' ? 'amount-in' : 'amount-out'}">
-          ${tx.direction === 'in' ? '+' : '-'} ${this.formatMoney(tx.amount)}
-        </span>
-      </article>
+        <div class="tx-card-right">
+          <span class="${tx.direction === 'in' ? 'amount-in' : 'amount-out'}">
+            ${tx.direction === 'in' ? '+' : '-'} ${this.formatMoney(tx.amount)}
+          </span>
+          <span class="tx-card-arrow">→</span>
+        </div>
+      </a>
     `).join('');
   },
 

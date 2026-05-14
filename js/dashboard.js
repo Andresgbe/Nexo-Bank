@@ -5,7 +5,7 @@
  * - Mostrar nombre del usuario logueado
  * - Mostrar saldo actual
  * - Ocultar / mostrar saldo
- * - Renderizar últimas 3 transacciones
+ * - Renderizar últimas 3 transacciones (clickeables → detalle)
  */
 
 const Dashboard = {
@@ -60,17 +60,22 @@ const Dashboard = {
       return;
     }
 
+    // Cada tarjeta es un <a> que abre el detalle de la transacción
     txList.innerHTML = transactions.map(tx => `
-      <article class="transaction-card">
+      <a href="transaction-detail.html?id=${encodeURIComponent(tx.id)}"
+         class="transaction-card transaction-card-link">
         <div>
           <strong>${tx.description}</strong>
           <p>${tx.counterparty} · ${this.formatDate(tx.date)}</p>
         </div>
 
-        <span class="${tx.direction === 'in' ? 'amount-in' : 'amount-out'}">
-          ${tx.direction === 'in' ? '+' : '-'} ${this.formatMoney(tx.amount)}
-        </span>
-      </article>
+        <div class="tx-card-right">
+          <span class="${tx.direction === 'in' ? 'amount-in' : 'amount-out'}">
+            ${tx.direction === 'in' ? '+' : '-'} ${this.formatMoney(tx.amount)}
+          </span>
+          <span class="tx-card-arrow">→</span>
+        </div>
+      </a>
     `).join('');
   },
 

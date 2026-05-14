@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banca 360 — Recuperar contraseña</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles/main.css"/>
+  <link rel="stylesheet" href="../styles/auth.css"/>
+</head>
+<body class="auth-page">
+
+  <!-- Botón flotante de tema -->
+  <button class="theme-toggle-float" onclick="Theme.toggle()">
+    <svg id="iconSun" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+    <svg id="iconMoon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16" style="display:none">
+      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+    </svg>
+    <span id="themeLabel">CLARO</span>
+  </button>
+
+  <div class="auth-container">
+
+    <!-- Panel izquierdo: branding -->
+    <div class="auth-brand animate-in">
+      <div class="brand-logo">Banca<span>360</span></div>
+      <p class="brand-tagline">¿Olvidaste tu clave?<br/>Te ayudamos a recuperarla.</p>
+      <div class="brand-features">
+        <div class="brand-feature">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="18" height="18">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+          </svg>
+          Verificación con pregunta de seguridad
+        </div>
+        <div class="brand-feature">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="18" height="18">
+            <polyline points="23 4 23 10 17 10"/>
+            <polyline points="1 20 1 14 7 14"/>
+            <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+          </svg>
+          Restablece tu contraseña al instante
+        </div>
+        <div class="brand-feature">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="18" height="18">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          Proceso 100% seguro
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel derecho: formulario -->
+    <div class="auth-form-panel animate-in" style="animation-delay:0.1s">
+
+      <!-- Indicador de pasos -->
+      <div class="step-indicator">
+        <div class="step-dot active" id="dot1">1</div>
+        <div class="step-line" id="line1"></div>
+        <div class="step-dot" id="dot2">2</div>
+        <div class="step-line" id="line2"></div>
+        <div class="step-dot" id="dot3">3</div>
+      </div>
+
+      <!-- ============ PASO 1: identificar usuario ============ -->
+      <div id="step1" class="recover-step">
+        <div class="auth-form-header">
+          <h1>Recuperar contraseña</h1>
+          <p>Ingresa tu cédula o correo para buscar tu cuenta</p>
+        </div>
+
+        <form id="findUserForm" novalidate>
+          <div class="input-group">
+            <label for="identifier">Cédula o correo electrónico</label>
+            <div class="input-wrap">
+              <input
+                type="text"
+                id="identifier"
+                placeholder="Ej: V-12345678"
+                autocomplete="username"
+              />
+            </div>
+            <span class="error-msg" id="identifierError">No encontramos una cuenta con esos datos.</span>
+          </div>
+
+          <button type="submit" class="btn-primary">Continuar</button>
+        </form>
+      </div>
+
+      <!-- ============ PASO 2: responder pregunta de seguridad ============ -->
+      <div id="step2" class="recover-step" style="display:none;">
+        <div class="auth-form-header">
+          <h1>Pregunta de seguridad</h1>
+          <p>Responde la pregunta que configuraste al registrarte</p>
+        </div>
+
+        <form id="answerForm" novalidate>
+          <div class="security-question-box">
+            <span class="security-question-label">Tu pregunta:</span>
+            <p class="security-question-text" id="questionDisplay">—</p>
+          </div>
+
+          <div class="input-group">
+            <label for="answer">Tu respuesta</label>
+            <div class="input-wrap">
+              <input
+                type="text"
+                id="answer"
+                placeholder="Escribe tu respuesta"
+                autocomplete="off"
+              />
+            </div>
+            <span class="error-msg" id="answerError">Respuesta incorrecta. Inténtalo de nuevo.</span>
+          </div>
+
+          <button type="submit" class="btn-primary">Verificar</button>
+          <a href="#" class="link-text recover-back" onclick="Recover.goToStep(1); return false;">← Volver</a>
+        </form>
+      </div>
+
+      <!-- ============ PASO 3: nueva contraseña ============ -->
+      <div id="step3" class="recover-step" style="display:none;">
+        <div class="auth-form-header">
+          <h1>Nueva contraseña</h1>
+          <p>Crea una nueva contraseña para tu cuenta</p>
+        </div>
+
+        <form id="newPasswordForm" novalidate>
+          <div class="input-group">
+            <label for="newPassword">Nueva contraseña <span class="field-hint">(6 dígitos numéricos)</span></label>
+            <div class="input-wrap">
+              <input
+                type="password"
+                id="newPassword"
+                class="has-icon"
+                placeholder="••••••"
+                maxlength="6"
+                inputmode="numeric"
+              />
+              <span class="input-icon" onclick="toggleVisibility('newPassword','eye1')">
+                <svg id="eye1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </span>
+            </div>
+            <span class="error-msg" id="newPasswordError">Debe contener exactamente 6 dígitos numéricos.</span>
+          </div>
+
+          <div class="input-group">
+            <label for="confirmNewPassword">Confirmar contraseña</label>
+            <div class="input-wrap">
+              <input
+                type="password"
+                id="confirmNewPassword"
+                class="has-icon"
+                placeholder="••••••"
+                maxlength="6"
+                inputmode="numeric"
+              />
+              <span class="input-icon" onclick="toggleVisibility('confirmNewPassword','eye2')">
+                <svg id="eye2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </span>
+            </div>
+            <span class="error-msg" id="confirmNewPasswordError">Las contraseñas no coinciden.</span>
+          </div>
+
+          <div class="form-message" id="recoverMessage"></div>
+
+          <button type="submit" class="btn-primary">Actualizar contraseña</button>
+        </form>
+      </div>
+
+      <p class="auth-footer-text">
+        ¿Ya recordaste tu contraseña?
+        <a href="../index.html" class="link-text">Inicia sesión</a>
+      </p>
+    </div>
+
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/recover.js"></script>
+  <script>
+    Theme.init();
+  </script>
+</body>
+</html>
