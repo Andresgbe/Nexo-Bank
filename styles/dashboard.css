@@ -255,3 +255,206 @@
   color: var(--text-on-accent);
   border-color: var(--accent);
 }
+
+/* ============================================
+   PROFILE — Encabezado, grid y zona de logout
+============================================ */
+
+/* Encabezado del perfil (avatar + datos) */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0b1340 0%, #2f4cdd 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.profile-header-info h2 {
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.profile-header-info p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+/* Grid de tarjetas (datos personales + contraseña) */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Pista pequeña al lado del label (ej. "no editable", "6 dígitos") */
+.field-hint {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 4px;
+}
+
+/* Input deshabilitado (cédula) */
+.input-wrap input:disabled {
+  background: var(--bg-input);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+/* Mensajes de feedback de los formularios */
+.form-message {
+  font-size: 0.82rem;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  display: none;
+}
+
+.form-message.visible {
+  display: block;
+}
+
+.form-message.success {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.form-message.error {
+  background: var(--danger-light);
+  color: var(--danger);
+}
+
+/* Zona de cierre de sesión */
+.logout-zone {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.logout-zone-text {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.btn-logout {
+  width: auto;
+  padding: 12px 22px;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-logout:hover {
+  background: var(--danger-light);
+}
+
+.btn-logout svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ============================================
+   LOGOUT SCREEN — "Sesión finalizada"
+============================================ */
+
+.logout-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(47, 76, 221, 0.08), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(47, 76, 221, 0.06), transparent 40%),
+    var(--bg-primary);
+}
+
+.logout-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 48px 40px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+
+.logout-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: var(--success-light);
+  color: var(--success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.logout-title {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.logout-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin-bottom: 28px;
+}
+
+.logout-action {
+  width: 100%;
+}
+
+.logout-brand {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.logout-brand span {
+  color: var(--accent);
+}

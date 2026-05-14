@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banca 360 — Sesión finalizada</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles/main.css"/>
+  <link rel="stylesheet" href="../styles/dashboard.css"/>
+</head>
+<body>
+
+  <div class="logout-screen">
+
+    <div class="logout-card animate-in">
+
+      <div class="logout-icon">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+
+      <h1 class="logout-title">Sesión finalizada</h1>
+      <p class="logout-subtitle">
+        Tu sesión se ha cerrado correctamente.<br/>
+        Gracias por usar <strong>Banca 360</strong>.
+      </p>
+
+      <a href="../index.html" class="btn-primary logout-action">
+        Volver a iniciar sesión
+      </a>
+
+      <div class="logout-brand">
+        Banca<span>360</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/theme.js"></script>
+  <script>
+    // Mantener el tema elegido por el usuario.
+    Theme.init();
+    // Asegurarnos de que la sesión esté cerrada al llegar aquí.
+    BancaStorage.clearSession();
+  </script>
+</body>
+</html>
